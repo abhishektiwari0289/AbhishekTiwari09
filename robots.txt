@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://ritviktiwari032-web.github.io/abishektiwari/sitemap.xml
+Sitemap: https://abhishektiwari0289.github.io/AbhishekTiwari09/sitemap.xml
