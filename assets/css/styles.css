@@ -1103,6 +1103,69 @@ a {
     opacity: 1;
 }
 
+/* ===== QUOTES SECTION ===== */
+.quotes-section {
+    padding: 100px 0;
+    background: var(--clr-surface-2);
+}
+
+.quotes-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+}
+
+.quote-card {
+    background: var(--clr-surface);
+    border: 1px solid var(--clr-border);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    text-align: center;
+    transition: all var(--transition-fast);
+    position: relative;
+}
+
+.quote-card:hover {
+    border-color: var(--clr-accent);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-glow);
+}
+
+.quote-icon {
+    font-size: 1.8rem;
+    color: var(--clr-accent);
+    opacity: 0.3;
+    margin-bottom: 16px;
+}
+
+.quote-text {
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--clr-text);
+    font-style: italic;
+    margin-bottom: 16px;
+}
+
+.quote-author {
+    font-size: 0.82rem;
+    color: var(--clr-accent);
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .quotes-grid {
+        grid-template-columns: 1fr;
+    }
+    .quotes-section {
+        padding: 60px 0;
+    }
+}
+
 /* ===== LIGHTBOX ===== */
 .lightbox {
     display: none;
