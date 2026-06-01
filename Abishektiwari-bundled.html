@@ -1241,6 +1241,7 @@ a {
 .quotes-section {
     padding: 100px 0;
     background: var(--clr-surface-2);
+    overflow: hidden;
 }
 
 .quotes-header {
@@ -1248,37 +1249,62 @@ a {
     margin-bottom: 60px;
 }
 
-.quotes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+.quotes-slider {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
 }
 
-.quote-card {
+.quotes-slide {
+    display: none;
+    animation: fadeIn 0.6s ease;
+}
+
+.quotes-slide.active {
+    display: block;
+}
+
+.quote-slide-inner {
+    display: flex;
+    align-items: center;
+    gap: 40px;
     background: var(--clr-surface);
     border: 1px solid var(--clr-border);
-    border-radius: var(--radius-lg);
-    padding: 36px 28px;
-    text-align: center;
-    transition: all var(--transition-fast);
-    position: relative;
+    border-radius: var(--radius-xl);
+    padding: 40px;
+    box-shadow: var(--shadow-card);
 }
 
-.quote-card:hover {
-    border-color: var(--clr-accent);
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-glow);
+.quote-image {
+    flex-shrink: 0;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 4px solid var(--clr-accent);
+    outline: 6px solid rgba(184, 134, 11, 0.08);
+    outline-offset: -3px;
+}
+
+.quote-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.quote-content {
+    flex: 1;
 }
 
 .quote-icon {
-    font-size: 1.8rem;
+    font-size: 2.4rem;
     color: var(--clr-accent);
-    opacity: 0.3;
-    margin-bottom: 16px;
+    opacity: 0.25;
+    margin-bottom: 12px;
 }
 
 .quote-text {
-    font-size: 1.05rem;
+    font-size: 1.15rem;
     line-height: 1.8;
     color: var(--clr-text);
     font-style: italic;
@@ -1286,17 +1312,44 @@ a {
 }
 
 .quote-author {
-    font-size: 0.82rem;
+    font-size: 0.9rem;
     color: var(--clr-accent);
-    font-weight: 500;
+    font-weight: 600;
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--clr-border);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.dot.active {
+    background: var(--clr-accent);
+    transform: scale(1.2);
 }
 
 @media (max-width: 768px) {
-    .quotes-grid {
-        grid-template-columns: 1fr;
-    }
     .quotes-section {
         padding: 60px 0;
+    }
+    .quote-slide-inner {
+        flex-direction: column;
+        text-align: center;
+        padding: 28px 20px;
+    }
+    .quote-image {
+        width: 140px;
+        height: 140px;
     }
 }
 
@@ -2658,36 +2711,48 @@ a {
                 <p class="section-subtitle" style="margin: 0 auto;">Timeless wisdom from the scriptures that inspire the soul.</p>
             </div>
 
-            <div class="quotes-grid">
-                <div class="quote-card reveal delay-1">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <p class="quote-text">The mind is everything. What you think you become.</p>
-                    <p class="quote-author">— Lord Krishna, Bhagavad Gita</p>
+            <div class="quotes-slider reveal" id="quotesSlider">
+                <div class="quotes-slide active">
+                    <div class="quote-slide-inner">
+                        <div class="quote-image">
+                            <img src="assets/images/quotes1.jpg" alt="Spiritual quote" loading="lazy">
+                        </div>
+                        <div class="quote-content">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p class="quote-text">The mind is everything. What you think you become.</p>
+                            <p class="quote-author">— Lord Krishna, Bhagavad Gita</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="quote-card reveal delay-2">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <p class="quote-text">When the power of love overcomes the love of power, the world will know peace.</p>
-                    <p class="quote-author">— Sri Sri Ravi Shankar</p>
+                <div class="quotes-slide">
+                    <div class="quote-slide-inner">
+                        <div class="quote-image">
+                            <img src="assets/images/quotes1.jpg" alt="Spiritual quote" loading="lazy">
+                        </div>
+                        <div class="quote-content">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p class="quote-text">Your duty is to act, without attachment to the results.</p>
+                            <p class="quote-author">— Lord Krishna, Bhagavad Gita</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="quote-card reveal delay-3">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <p class="quote-text">In the middle of difficulty lies opportunity.</p>
-                    <p class="quote-author">— Swami Vivekananda</p>
+                <div class="quotes-slide">
+                    <div class="quote-slide-inner">
+                        <div class="quote-image">
+                            <img src="assets/images/quotes1.jpg" alt="Spiritual quote" loading="lazy">
+                        </div>
+                        <div class="quote-content">
+                            <i class="fas fa-quote-left quote-icon"></i>
+                            <p class="quote-text">Arise! Awake! Stop not until the goal is reached.</p>
+                            <p class="quote-author">— Swami Vivekananda</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="quote-card reveal delay-1">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <p class="quote-text">Your duty is to act, without attachment to the results.</p>
-                    <p class="quote-author">— Lord Krishna, Bhagavad Gita</p>
-                </div>
-                <div class="quote-card reveal delay-2">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <p class="quote-text">Arise! Awake! Stop not until the goal is reached.</p>
-                    <p class="quote-author">— Swami Vivekananda</p>
-                </div>
-                <div class="quote-card reveal delay-3">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <p class="quote-text">Peace comes from within. Do not seek it without.</p>
-                    <p class="quote-author">— Buddha</p>
+
+                <div class="slider-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
+                    <span class="dot" data-index="2"></span>
                 </div>
             </div>
         </div>
@@ -3066,6 +3131,37 @@ Jai Mata Di 🙏`
             closeLightbox();
         }
     });
+
+    // ===== QUOTES SLIDER =====
+    const slider = document.getElementById('quotesSlider');
+    if (slider) {
+        const slides = slider.querySelectorAll('.quotes-slide');
+        const dots = slider.querySelectorAll('.dot');
+        let current = 0;
+        let interval;
+
+        function showSlide(index) {
+            slides.forEach(s => s.classList.remove('active'));
+            dots.forEach(d => d.classList.remove('active'));
+            slides[index].classList.add('active');
+            dots[index].classList.add('active');
+            current = index;
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                clearInterval(interval);
+                showSlide(parseInt(this.dataset.index));
+                interval = setInterval(autoSlide, 4000);
+            });
+        });
+
+        function autoSlide() {
+            showSlide((current + 1) % slides.length);
+        }
+
+        interval = setInterval(autoSlide, 4000);
+    }
 });
 
 </script>
