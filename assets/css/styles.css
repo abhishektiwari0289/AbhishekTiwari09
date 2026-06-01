@@ -1107,7 +1107,6 @@ a {
 .quotes-section {
     padding: 100px 0;
     background: var(--clr-surface-2);
-    overflow: hidden;
 }
 
 .quotes-header {
@@ -1115,62 +1114,36 @@ a {
     margin-bottom: 60px;
 }
 
-.quotes-slider {
-    position: relative;
-    max-width: 800px;
-    margin: 0 auto;
+.quotes-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
 }
 
-.quotes-slide {
-    display: none;
-    animation: fadeIn 0.6s ease;
-}
-
-.quotes-slide.active {
-    display: block;
-}
-
-.quote-slide-inner {
-    display: flex;
-    align-items: center;
-    gap: 40px;
+.quote-card {
     background: var(--clr-surface);
     border: 1px solid var(--clr-border);
-    border-radius: var(--radius-xl);
-    padding: 40px;
-    box-shadow: var(--shadow-card);
+    border-radius: var(--radius-lg);
+    padding: 36px 28px;
+    text-align: center;
+    transition: all var(--transition-fast);
 }
 
-.quote-image {
-    flex-shrink: 0;
-    width: 200px;
-    height: 200px;
-    border-radius: 50%;
-    overflow: hidden;
-    border: 4px solid var(--clr-accent);
-    outline: 6px solid rgba(184, 134, 11, 0.08);
-    outline-offset: -3px;
-}
-
-.quote-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.quote-content {
-    flex: 1;
+.quote-card:hover {
+    border-color: var(--clr-accent);
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-glow);
 }
 
 .quote-icon {
-    font-size: 2.4rem;
+    font-size: 1.8rem;
     color: var(--clr-accent);
-    opacity: 0.25;
-    margin-bottom: 12px;
+    opacity: 0.3;
+    margin-bottom: 16px;
 }
 
 .quote-text {
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     line-height: 1.8;
     color: var(--clr-text);
     font-style: italic;
@@ -1178,44 +1151,17 @@ a {
 }
 
 .quote-author {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     color: var(--clr-accent);
-    font-weight: 600;
-}
-
-.slider-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 30px;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: var(--clr-border);
-    cursor: pointer;
-    transition: all var(--transition-fast);
-}
-
-.dot.active {
-    background: var(--clr-accent);
-    transform: scale(1.2);
+    font-weight: 500;
 }
 
 @media (max-width: 768px) {
+    .quotes-grid {
+        grid-template-columns: 1fr;
+    }
     .quotes-section {
         padding: 60px 0;
-    }
-    .quote-slide-inner {
-        flex-direction: column;
-        text-align: center;
-        padding: 28px 20px;
-    }
-    .quote-image {
-        width: 140px;
-        height: 140px;
     }
 }
 

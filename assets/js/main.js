@@ -253,34 +253,4 @@ Jai Mata Di 🙏`
         }
     });
 
-    // ===== QUOTES SLIDER =====
-    const slider = document.getElementById('quotesSlider');
-    if (slider) {
-        const slides = slider.querySelectorAll('.quotes-slide');
-        const dots = slider.querySelectorAll('.dot');
-        let current = 0;
-        let interval;
-
-        function showSlide(index) {
-            slides.forEach(s => s.classList.remove('active'));
-            dots.forEach(d => d.classList.remove('active'));
-            slides[index].classList.add('active');
-            dots[index].classList.add('active');
-            current = index;
-        }
-
-        dots.forEach(dot => {
-            dot.addEventListener('click', function() {
-                clearInterval(interval);
-                showSlide(parseInt(this.dataset.index));
-                interval = setInterval(autoSlide, 4000);
-            });
-        });
-
-        function autoSlide() {
-            showSlide((current + 1) % slides.length);
-        }
-
-        interval = setInterval(autoSlide, 4000);
-    }
 });
