@@ -258,8 +258,6 @@ Jai Mata Di 🙏`
     if (sliderTrack) {
         const slides = sliderTrack.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.photo-slider .dot');
-        const prevBtn = document.querySelector('.arrow-prev');
-        const nextBtn = document.querySelector('.arrow-next');
         let current = 0;
         let interval;
 
@@ -273,10 +271,7 @@ Jai Mata Di 🙏`
         }
 
         function nextSlide() { goTo(current + 1); }
-        function prevSlide() { goTo(current - 1); }
 
-        nextBtn.addEventListener('click', () => { clearInterval(interval); nextSlide(); interval = setInterval(nextSlide, 4000); });
-        prevBtn.addEventListener('click', () => { clearInterval(interval); prevSlide(); interval = setInterval(nextSlide, 4000); });
         dots.forEach(d => d.addEventListener('click', function() { clearInterval(interval); goTo(parseInt(this.dataset.index)); interval = setInterval(nextSlide, 4000); }));
 
         interval = setInterval(nextSlide, 4000);

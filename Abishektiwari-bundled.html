@@ -1274,41 +1274,6 @@ a {
     display: block;
 }
 
-.slider-arrows {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-    display: flex;
-    justify-content: space-between;
-    padding: 0 16px;
-    pointer-events: none;
-    z-index: 2;
-}
-
-.arrow {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.85);
-    border: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.2rem;
-    color: var(--clr-text);
-    transition: all var(--transition-fast);
-    pointer-events: auto;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-}
-
-.arrow:hover {
-    background: #fff;
-    transform: scale(1.1);
-}
-
 .slider-dots {
     position: absolute;
     bottom: 20px;
@@ -1339,11 +1304,6 @@ a {
     }
     .slide {
         aspect-ratio: 4/3;
-    }
-    .arrow {
-        width: 36px;
-        height: 36px;
-        font-size: 0.9rem;
     }
 }
 
@@ -2714,10 +2674,6 @@ a {
                         <img src="assets/images/quotes1.jpg" alt="Spiritual moment" loading="lazy">
                     </div>
                 </div>
-                <div class="slider-arrows">
-                    <button class="arrow arrow-prev"><i class="fas fa-chevron-left"></i></button>
-                    <button class="arrow arrow-next"><i class="fas fa-chevron-right"></i></button>
-                </div>
                 <div class="slider-dots">
                     <span class="dot active" data-index="0"></span>
                     <span class="dot" data-index="1"></span>
@@ -3105,8 +3061,6 @@ Jai Mata Di 🙏`
     if (sliderTrack) {
         const slides = sliderTrack.querySelectorAll('.slide');
         const dots = document.querySelectorAll('.photo-slider .dot');
-        const prevBtn = document.querySelector('.arrow-prev');
-        const nextBtn = document.querySelector('.arrow-next');
         let current = 0;
         let interval;
 
@@ -3120,10 +3074,7 @@ Jai Mata Di 🙏`
         }
 
         function nextSlide() { goTo(current + 1); }
-        function prevSlide() { goTo(current - 1); }
 
-        nextBtn.addEventListener('click', () => { clearInterval(interval); nextSlide(); interval = setInterval(nextSlide, 4000); });
-        prevBtn.addEventListener('click', () => { clearInterval(interval); prevSlide(); interval = setInterval(nextSlide, 4000); });
         dots.forEach(d => d.addEventListener('click', function() { clearInterval(interval); goTo(parseInt(this.dataset.index)); interval = setInterval(nextSlide, 4000); }));
 
         interval = setInterval(nextSlide, 4000);
