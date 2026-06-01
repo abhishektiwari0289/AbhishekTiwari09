@@ -253,4 +253,32 @@ Jai Mata Di 🙏`
         }
     });
 
+    // ===== PHOTO SLIDER =====
+    const sliderTrack = document.querySelector('.slider-track');
+    if (sliderTrack) {
+        const slides = sliderTrack.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.photo-slider .dot');
+        const prevBtn = document.querySelector('.arrow-prev');
+        const nextBtn = document.querySelector('.arrow-next');
+        let current = 0;
+        let interval;
+
+        function goTo(index) {
+            if (index < 0) index = slides.length - 1;
+            if (index >= slides.length) index = 0;
+            sliderTrack.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach(d => d.classList.remove('active'));
+            dots[index].classList.add('active');
+            current = index;
+        }
+
+        function nextSlide() { goTo(current + 1); }
+        function prevSlide() { goTo(current - 1); }
+
+        nextBtn.addEventListener('click', () => { clearInterval(interval); nextSlide(); interval = setInterval(nextSlide, 4000); });
+        prevBtn.addEventListener('click', () => { clearInterval(interval); prevSlide(); interval = setInterval(nextSlide, 4000); });
+        dots.forEach(d => d.addEventListener('click', function() { clearInterval(interval); goTo(parseInt(this.dataset.index)); interval = setInterval(nextSlide, 4000); }));
+
+        interval = setInterval(nextSlide, 4000);
+    }
 });

@@ -1237,7 +1237,7 @@ a {
     opacity: 1;
 }
 
-/* ===== QUOTES SECTION ===== */
+/* ===== QUOTES PHOTO SLIDER ===== */
 .quotes-section {
     padding: 100px 0;
     background: var(--clr-surface-2);
@@ -1248,54 +1248,102 @@ a {
     margin-bottom: 60px;
 }
 
-.quotes-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
+.photo-slider {
+    position: relative;
+    max-width: 900px;
+    margin: 0 auto;
+    overflow: hidden;
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-card);
 }
 
-.quote-card {
-    background: var(--clr-surface);
-    border: 1px solid var(--clr-border);
-    border-radius: var(--radius-lg);
-    padding: 36px 28px;
-    text-align: center;
+.slider-track {
+    display: flex;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.slide {
+    min-width: 100%;
+    aspect-ratio: 16/9;
+}
+
+.slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.slider-arrows {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+    display: flex;
+    justify-content: space-between;
+    padding: 0 16px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.arrow {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.85);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: var(--clr-text);
+    transition: all var(--transition-fast);
+    pointer-events: auto;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.arrow:hover {
+    background: #fff;
+    transform: scale(1.1);
+}
+
+.slider-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+    z-index: 2;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;
     transition: all var(--transition-fast);
 }
 
-.quote-card:hover {
-    border-color: var(--clr-accent);
-    transform: translateY(-6px);
-    box-shadow: var(--shadow-glow);
-}
-
-.quote-icon {
-    font-size: 1.8rem;
-    color: var(--clr-accent);
-    opacity: 0.3;
-    margin-bottom: 16px;
-}
-
-.quote-text {
-    font-size: 1.05rem;
-    line-height: 1.8;
-    color: var(--clr-text);
-    font-style: italic;
-    margin-bottom: 16px;
-}
-
-.quote-author {
-    font-size: 0.82rem;
-    color: var(--clr-accent);
-    font-weight: 500;
+.dot.active {
+    background: var(--clr-accent);
+    transform: scale(1.2);
 }
 
 @media (max-width: 768px) {
-    .quotes-grid {
-        grid-template-columns: 1fr;
-    }
     .quotes-section {
         padding: 60px 0;
+    }
+    .slide {
+        aspect-ratio: 4/3;
+    }
+    .arrow {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
     }
 }
 
@@ -2657,21 +2705,22 @@ a {
                 <p class="section-subtitle" style="margin: 0 auto;">Timeless wisdom from the scriptures that inspire the soul.</p>
             </div>
 
-            <div class="quotes-grid">
-                <div class="quote-card reveal delay-1">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <p class="quote-text">The mind is everything. What you think you become.</p>
-                    <p class="quote-author">— Lord Krishna, Bhagavad Gita</p>
+            <div class="photo-slider" id="photoSlider">
+                <div class="slider-track">
+                    <div class="slide">
+                        <img src="assets/images/quotes1.jpg" alt="Spiritual moment" loading="lazy">
+                    </div>
+                    <div class="slide">
+                        <img src="assets/images/quotes1.jpg" alt="Spiritual moment" loading="lazy">
+                    </div>
                 </div>
-                <div class="quote-card reveal delay-2">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <p class="quote-text">When the power of love overcomes the love of power, the world will know peace.</p>
-                    <p class="quote-author">— Sri Sri Ravi Shankar</p>
+                <div class="slider-arrows">
+                    <button class="arrow arrow-prev"><i class="fas fa-chevron-left"></i></button>
+                    <button class="arrow arrow-next"><i class="fas fa-chevron-right"></i></button>
                 </div>
-                <div class="quote-card reveal delay-3">
-                    <i class="fas fa-quote-left quote-icon"></i>
-                    <p class="quote-text">Arise! Awake! Stop not until the goal is reached.</p>
-                    <p class="quote-author">— Swami Vivekananda</p>
+                <div class="slider-dots">
+                    <span class="dot active" data-index="0"></span>
+                    <span class="dot" data-index="1"></span>
                 </div>
             </div>
         </div>
@@ -3051,6 +3100,34 @@ Jai Mata Di 🙏`
         }
     });
 
+    // ===== PHOTO SLIDER =====
+    const sliderTrack = document.querySelector('.slider-track');
+    if (sliderTrack) {
+        const slides = sliderTrack.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.photo-slider .dot');
+        const prevBtn = document.querySelector('.arrow-prev');
+        const nextBtn = document.querySelector('.arrow-next');
+        let current = 0;
+        let interval;
+
+        function goTo(index) {
+            if (index < 0) index = slides.length - 1;
+            if (index >= slides.length) index = 0;
+            sliderTrack.style.transform = `translateX(-${index * 100}%)`;
+            dots.forEach(d => d.classList.remove('active'));
+            dots[index].classList.add('active');
+            current = index;
+        }
+
+        function nextSlide() { goTo(current + 1); }
+        function prevSlide() { goTo(current - 1); }
+
+        nextBtn.addEventListener('click', () => { clearInterval(interval); nextSlide(); interval = setInterval(nextSlide, 4000); });
+        prevBtn.addEventListener('click', () => { clearInterval(interval); prevSlide(); interval = setInterval(nextSlide, 4000); });
+        dots.forEach(d => d.addEventListener('click', function() { clearInterval(interval); goTo(parseInt(this.dataset.index)); interval = setInterval(nextSlide, 4000); }));
+
+        interval = setInterval(nextSlide, 4000);
+    }
 });
 
 </script>
