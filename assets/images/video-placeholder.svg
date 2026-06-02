@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="640" height="360" fill="#2a241e"/>
+  <circle cx="320" cy="180" r="48" fill="none" stroke="#b8860b" stroke-width="4"/>
+  <polygon points="304,156 304,204 344,180" fill="#b8860b"/>
+  <text x="320" y="280" text-anchor="middle" fill="rgba(255,255,255,0.4)" font-family="sans-serif" font-size="14">Live Event</text>
+</svg>
